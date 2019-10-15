@@ -242,6 +242,20 @@ export class Session {
   private _ops: Operator[];
   private _executionPlan: ExecutionPlan;
 
+  getModel():Model {
+    if (!this._initialized) {
+      throw new Error('not initialized');
+    }
+    return this._model;
+  }
+
+  getOps():Operator[] {
+    if (!this._initialized) {
+      throw new Error('not initialized');
+    }
+    return this._ops;
+  }
+
   private backendHint?: string;
 
   private sessionHandler: SessionHandlerType;

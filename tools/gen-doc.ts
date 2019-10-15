@@ -9,8 +9,6 @@ import * as path from 'path';
 import * as readline from 'readline';
 
 import {Attribute} from '../lib/attribute';
-import {CPU_OP_RESOLVE_RULES} from '../lib/backends/cpu/op-resolve-rules';
-import {WASM_OP_RESOLVE_RULES} from '../lib/backends/wasm/op-resolve-rules';
 import {WEBGL_OP_RESOLVE_RULES} from '../lib/backends/webgl/op-resolve-rules';
 import {Operator} from '../lib/operators';
 import {OpSet, resolveOperator} from '../lib/opset';
@@ -24,10 +22,6 @@ https.get('https://raw.githubusercontent.com/onnx/onnx/v1.5.0/onnx/defs/operator
 
   const ops = new Map<string, Map<string, number[]>>();
 
-  const cpuCheckOnlyRules =
-      CPU_OP_RESOLVE_RULES.map(rule => [rule[0], rule[1], rule[2], dummyOpConstructor] as OpSet.ResolveRule);
-  const wasmCheckOnlyRules =
-      WASM_OP_RESOLVE_RULES.map(rule => [rule[0], rule[1], rule[2], dummyOpConstructor] as OpSet.ResolveRule);
   const webglCheckOnlyRules =
       WEBGL_OP_RESOLVE_RULES.map(rule => [rule[0], rule[1], rule[2], dummyOpConstructor] as OpSet.ResolveRule);
 

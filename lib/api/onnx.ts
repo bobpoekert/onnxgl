@@ -15,10 +15,6 @@ export declare namespace Backend {
     disabled?: boolean;
   }
   /**
-   * set options for the CPU backend
-   */
-  interface CpuOptions extends BackendOptions {}
-  /**
    * set options for the WebGL backend
    */
   interface WebGLOptions extends BackendOptions {
@@ -35,23 +31,6 @@ export declare namespace Backend {
      */
     textureCacheMode?: 'initializerOnly'|'full';
   }
-  /**
-   * set options for the WebAssembly backend
-   */
-  interface WasmOptions extends BackendOptions {
-    /**
-     * set or get number of worker(s)
-     */
-    worker?: number;
-    /**
-     * set or get a flag specifying if the fallback cpu implementations can be used in case of missing ops
-     */
-    cpuFallback?: boolean;
-    /**
-     * set or get a number specifying the timeout for initialization of WebAssembly backend, in milliseconds.
-     */
-    initTimeout?: number;
-  }
 
   /**
    * represent all backend settings
@@ -67,9 +46,7 @@ export declare namespace Backend {
    * represent all available backends
    */
   interface AvailableBackends {
-    cpu: CpuOptions;
     webgl: WebGLOptions;
-    wasm: WasmOptions;
 
     /**
      * set options for the specific backend

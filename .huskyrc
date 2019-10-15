@@ -1,6 +1,5 @@
 {
   "skipCI": false,
   "hooks": {
-    "pre-commit": "node tools/pre-commit"
   }
 }

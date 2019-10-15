@@ -25,9 +25,6 @@ export declare namespace Encoder {
  * Decoding means how a texlet's channels are mapped to a resulting Float32
  */
 export interface DataEncoder {
-  internalFormat: number;
-  format: number;
-  textureType: number;
   channelSize: number;
   encode(src: Encoder.DataArrayType, textureSize: number): Encoder.DataArrayType;
   allocate(size: number): Encoder.DataArrayType;
@@ -38,20 +35,11 @@ export interface DataEncoder {
  * Uses R32F as the format for texlet
  */
 export class RedFloat32DataEncoder implements DataEncoder {
-  internalFormat: number;
-  format: number;
-  textureType: number;
   channelSize: number;
-  constructor(gl: WebGL2RenderingContext, channels = 1) {
+  constructor(channels = 1) {
     if (channels === 1) {
-      this.internalFormat = gl.R32F;
-      this.format = gl.RED;
-      this.textureType = gl.FLOAT;
       this.channelSize = channels;
     } else if (channels === 4) {
-      this.internalFormat = gl.RGBA32F;
-      this.format = gl.RGBA;
-      this.textureType = gl.FLOAT;
       this.channelSize = channels;
     } else {
       throw new Error(`Invalid number of channels: ${channels}`);
@@ -90,18 +78,12 @@ export class RedFloat32DataEncoder implements DataEncoder {
  * Data encoder for WebGL 1 with support for floating point texture
  */
 export class RGBAFloatDataEncoder implements DataEncoder {
-  internalFormat: number;
-  format: number;
-  textureType: number;
   channelSize: number;
-  constructor(gl: WebGLRenderingContext, channels = 1, textureType?: number) {
+  constructor(channels = 1, textureType?: number) {
     if (channels !== 1 && channels !== 4) {
       throw new Error(`Invalid number of channels: ${channels}`);
     }
-    this.internalFormat = gl.RGBA;
-    this.format = gl.RGBA;
     this.channelSize = channels;
-    this.textureType = textureType || gl.FLOAT;
   }
   encode(src: Float32Array, textureSize: number): Encoder.DataArrayType {
     let dest = src;
@@ -125,20 +107,11 @@ export class RGBAFloatDataEncoder implements DataEncoder {
 }
 
 export class Uint8DataEncoder implements DataEncoder {
-  internalFormat: number;
-  format: number;
-  textureType: number;
   channelSize = 4;
-  constructor(gl: WebGLRenderingContext, channels = 1) {
+  constructor(channels = 1) {
     if (channels === 1) {
-      this.internalFormat = gl.ALPHA;
-      this.format = gl.ALPHA;  // not tested
-      this.textureType = gl.UNSIGNED_BYTE;
       this.channelSize = channels;
     } else if (channels === 4) {
-      this.internalFormat = gl.RGBA;
-      this.format = gl.RGBA;
-      this.textureType = gl.UNSIGNED_BYTE;
       this.channelSize = channels;
     } else {
       throw new Error(`Invalid number of channels: ${channels}`);
